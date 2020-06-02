@@ -4,7 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginScreen from './components/Login';
-import AboutScreen from './components/Register';
+import RegisterScreen from './components/Register';
 import HomeScreen from './components/Home';
 
 class HomeScreens extends React.Component {
@@ -21,8 +21,8 @@ const AppNavigator = createStackNavigator({
 Home: {
 screen: HomeScreen
 },
-About: {
-screen: AboutScreen
+Register: {
+screen: RegisterScreen
 },
 Login: {
     screen: LoginScreen

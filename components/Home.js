@@ -15,6 +15,16 @@ return (
   accessibilityLabel="Learn more about this purple button"
 />
 
+<Text></Text>
+
+<Text>Si no estas registrado haga clic en registrar</Text>
+<Button
+  onPress={() => this.props.navigation.navigate('Register')}
+  title="Registro"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
+
 </View>
 )
 }
