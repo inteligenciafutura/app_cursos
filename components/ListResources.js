@@ -63,17 +63,7 @@ console.log(error);
         <Container>
         <Header />
         <Content padder>
-        <Form>
-            <Item>
-              <Input placeholder="Username" onChangeText={correo => this.setState({correo})} />
-            </Item>
-            <Item last>
-              <Input placeholder="Password" onChangeText={clave => this.setState({clave})} />
-            </Item>
-            <Button onPress={this.Login}>
-              <Text>Login</Text>
-            </Button>
-          </Form>
+       <Text>Lista de cursos</Text>
         </Content>
         <Footer />
       </Container>

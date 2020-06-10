@@ -1,31 +1,67 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
 
 export default class Aboutscreen extends Component {
 render() {
 return (
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-<Text>Si ya estas registrado haga clic en login</Text>
 
-<Button
-  onPress={() => this.props.navigation.navigate('Login')}
-  title="Login"
-  color="#841584"
-  accessibilityLabel="Learn more about this purple button"
-/>
+<Content>
 
-<Text></Text>
+ <Card>
+    <CardItem header>
+      <Text>Si ya estas registrado haga clic en login</Text>
+    </CardItem>
 
-<Text>Si no estas registrado haga clic en registrar</Text>
-<Button
+    <CardItem>
+    <Body>
+    <Button
+    onPress={() => this.props.navigation.navigate('Login')}
+    title="Login"
+    color="#841584"
+    accessibilityLabel="Learn more about this purple button"
+    />
+    </Body>
+    </CardItem>
+ </Card>
+
+ <Card>
+    <CardItem header>
+      <Text>Si no estas registrado haga clic en registrar</Text>
+    </CardItem>
+
+    <CardItem>
+    <Body>
+    <Button
   onPress={() => this.props.navigation.navigate('Register')}
   title="Registro"
   color="#841584"
   accessibilityLabel="Learn more about this purple button"
 />
+    </Body>
+    </CardItem>
+ </Card>
 
-</View>
+ <Card>
+    <CardItem header>
+      <Text>Tiendas</Text>
+    </CardItem>
+
+    <CardItem>
+    <Body>
+    <Button
+  onPress={() => this.props.navigation.navigate('Tiendas')}
+  title="Ver"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
+    </Body>
+    </CardItem>
+ </Card>
+
+</Content>
+
 )
 }
 }
