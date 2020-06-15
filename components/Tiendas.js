@@ -71,6 +71,13 @@ coordinate={{
  longitude : parseFloat(marker.longitud)
 }}
 title={marker.nombre}
+onPress={()=> 
+/* 1. Navigate to the Details route with params */
+this.props.navigation.navigate('Ruta', {
+    latitudeDestino: parseFloat(marker.latitud),
+    longitudeDestino: parseFloat(marker.longitud),
+    })
+}
 />
 ))}
 

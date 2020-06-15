@@ -8,6 +8,7 @@ import RegisterScreen from './components/Register';
 import HomeScreen from './components/Home';
 import ListResourcesScreen from './components/ListResources';
 import Tiendas from './components/Tiendas';
+import Ruta from './components/Ruta';
 
 class HomeScreens extends React.Component {
 render() {
@@ -34,7 +35,10 @@ screen: ListResourcesScreen
 },
 Tiendas: {
     screen: Tiendas
-    }
+},
+Ruta: {
+    screen: Ruta
+}
 });
 
 export default createAppContainer(AppNavigator);
