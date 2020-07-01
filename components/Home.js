@@ -3,6 +3,8 @@ import { Button, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
 
+import firebase from '../database/firebaseDb';
+
 export default class Aboutscreen extends Component {
 render() {
 return (
@@ -52,6 +54,23 @@ return (
     <Body>
     <Button
   onPress={() => this.props.navigation.navigate('Tiendas')}
+  title="Ver"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
+    </Body>
+    </CardItem>
+ </Card>
+
+ <Card>
+    <CardItem header>
+      <Text>Carrito de compras</Text>
+    </CardItem>
+
+    <CardItem>
+    <Body>
+    <Button
+  onPress={() => this.props.navigation.navigate('Carrito')}
   title="Ver"
   color="#841584"
   accessibilityLabel="Learn more about this purple button"

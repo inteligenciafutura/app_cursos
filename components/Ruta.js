@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, Text } from 'react-native';
 import MapView from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import { View } from 'native-base';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -10,7 +11,7 @@ const LONGITUDE = -75.5879654;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const GOOGLE_MAPS_APIKEY = 'Aqui escribes tu api key';
+const GOOGLE_MAPS_APIKEY = 'Digita tu clave aquí';
 
 class Example extends Component {
 
@@ -19,7 +20,8 @@ super(props);
 
 // AirBnB's Office, and Apple Park
 this.state = {
-
+distancia:0,
+duracion:0
 };
 
 this.mapView = null;
@@ -67,9 +69,21 @@ onPress={this.onMapPress}
     <MapViewDirections
     origin={origin}
     destination={destination}
+    strokeWidth={3}
+    strokeColor="hotpink"
     apikey={GOOGLE_MAPS_APIKEY}
+    onReady={result => {
+      this.setState({distancia:result.distance})
+      this.setState({duracion:result.duration})
+      console.log(`Distance: ${result.distance} km`)
+      console.log(`Duration: ${result.duration} min.`) 
+    }}
   />
 )}
+<View>
+  <Text>La distancia es de {this.state.distancia}</Text>
+  <Text>El tiempo es de {this.state.duracion}</Text>
+</View>
 </MapView>
 );
 }

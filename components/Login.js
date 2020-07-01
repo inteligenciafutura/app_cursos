@@ -5,45 +5,38 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { AsyncStorage, Alert } from 'react-native';
 
+import firebase from '../database/firebaseDb';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isReady: false,
-      correo:'',
-      clave:''
+      email:'',
+      password:''
     };
   }
 
-  Login = () =>{
- const { correo }  = this.state ;
- const { clave }  = this.state ;
-
-    fetch('http://192.168.0.9/pruebas/login.php',{
-method: 'POST',
-header:{
-'Accept' : 'application/json',
-'Content-type' : 'application/json'
-},
-body:JSON.stringify({
-correo : correo,
-clave : clave,
-})
-})
-.then( (respuesta) => respuesta.json() )
-.then((responseJson) =>{
-if(responseJson == "Ok"){
-alert("Bienvenidos");
-//guardo de forma local el token
-AsyncStorage.setItem('token','86');
-this.props.navigation.navigate('ListaRecursos');
-}
-})
-.catch((error)=>{
-console.log(error);
-})
-    
-  }
+  
+  loginUser = (email, password) =>{
+    try {
+      if(this.state.email.length < 6){
+        alert("Debe ingresar el correo")
+        return;
+      }
+      if(this.state.password.length < 6){
+        alert("Debe ingresar la contraseña")
+        return;
+      }
+      firebase.auth().signInWithEmailAndPassword(email,password).then(function(user){
+        //console.log(user)
+        alert( JSON.stringify(user))
+      })
+      this.props.navigation.navigate('Tiendas')
+    } catch (error) {
+     console.log(error.toString())
+    }
+   }
 
   async componentDidMount() {
     await Font.loadAsync({
@@ -65,12 +58,12 @@ console.log(error);
         <Content padder>
         <Form>
             <Item>
-              <Input placeholder="Username" onChangeText={correo => this.setState({correo})} />
+              <Input placeholder="Username" onChangeText={email => this.setState({email})} />
             </Item>
             <Item last>
-              <Input placeholder="Password" onChangeText={clave => this.setState({clave})} />
+              <Input placeholder="Password" onChangeText={password => this.setState({password})} />
             </Item>
-            <Button onPress={this.Login}>
+            <Button onPress={()=> this.loginUser(this.state.email, this.state.password)}>
               <Text>Login</Text>
             </Button>
           </Form>

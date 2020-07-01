@@ -5,42 +5,30 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { AsyncStorage } from 'react-native';
 
+import firebase from '../database/firebaseDb';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isReady: false,
-      correo:'',
-      clave:'',
+      email:'',
+      password:'',
       nombreCompleto:''
     };
   }
 
-  Registro = () =>{
- const { correo }  = this.state ;
- const { clave }  = this.state ;
- const { nombreCompleto }  = this.state ;
-
-    fetch('http://192.168.0.9/pruebas/registro.php',{
-method: 'POST',
-header:{
-'Accept' : 'application/json',
-'Content-type' : 'application/json'
-},
-body:JSON.stringify({
-correo : correo,
-clave : clave,
-nombreCompleto : nombreCompleto
-})
-})
-.then( (respuesta) => respuesta.json() )
-.then((responseJson) =>{
-alert(responseJson);
-})
-.catch((error)=>{
-console.log(error);
-})
-    
+signUpUser = (email, password) =>{
+    try {
+        if(this.state.password.length < 6){
+            alert("La contraseña debe tener al menos 6 caracteres")
+            return;
+        }
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        alert("Usuario creado")
+    } catch (error) {
+        console.log(error.toString())
+    }
   }
 
   async componentDidMount() {
@@ -63,15 +51,12 @@ console.log(error);
         <Content padder>
         <Form>
             <Item>
-              <Input placeholder="Nombre Completo" onChangeText={nombreCompleto => this.setState({nombreCompleto})} />
-            </Item>
-            <Item>
-              <Input placeholder="Correo" onChangeText={correo => this.setState({correo})} />
+              <Input placeholder="Correo" onChangeText={email => this.setState({email})} />
             </Item>
             <Item last>
-              <Input placeholder="Password" onChangeText={clave => this.setState({clave})} />
+              <Input placeholder="Password" onChangeText={password => this.setState({password})} />
             </Item>
-            <Button onPress={this.Registro}>
+            <Button onPress={()=> this.signUpUser(this.state.email, this.state.password)}>
               <Text>Registro</Text>
             </Button>
           </Form>

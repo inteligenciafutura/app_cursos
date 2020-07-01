@@ -9,6 +9,7 @@ import HomeScreen from './components/Home';
 import ListResourcesScreen from './components/ListResources';
 import Tiendas from './components/Tiendas';
 import Ruta from './components/Ruta';
+import Carrito from './components/Carrito';
 
 class HomeScreens extends React.Component {
 render() {
@@ -38,6 +39,9 @@ Tiendas: {
 },
 Ruta: {
     screen: Ruta
+},
+Carrito: {
+    screen: Carrito
 }
 });
 

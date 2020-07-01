@@ -1,43 +1,34 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import { Container, Button, Header, Item, Input, Footer, Content, Form, Text } from 'native-base';
+import { Container, Button, Header, Item, Input, Footer, Content, Form, Text, Card, CardItem, Left, Thumbnail, Body, Icon } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage, Alert, Image } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.Cursos()
     this.state = {
       isReady: false,
       correo:'',
-      clave:''
+      clave:'',
+      listadoCursos:[]
     };
   }
 
-  Login = () =>{
- const { correo }  = this.state ;
- const { clave }  = this.state ;
+  Cursos = () =>{
 
-    fetch('http://192.168.0.9/pruebas/login.php',{
-method: 'POST',
+    fetch('http://192.168.0.9/pruebas/cursos.php',{
+method: 'GET',
 header:{
 'Accept' : 'application/json',
 'Content-type' : 'application/json'
-},
-body:JSON.stringify({
-correo : correo,
-clave : clave,
-})
+}
 })
 .then( (respuesta) => respuesta.json() )
 .then((responseJson) =>{
-if(responseJson == "Ok"){
-alert("Bienvenidos");
-//guardo de forma local el token
-AsyncStorage.setItem('token','86');
-this.props.navigation.navigate('ListaRecursos');
-}
+this.setState({listadoCursos:responseJson})
 })
 .catch((error)=>{
 console.log(error);
@@ -64,6 +55,37 @@ console.log(error);
         <Header />
         <Content padder>
        <Text>Lista de cursos</Text>
+
+       {this.state.listadoCursos.map(item => ( 
+         <Card style={{flex: 0}}>
+         <CardItem>
+           <Left>
+             <Thumbnail source={{uri: item.url}} />
+             <Body>
+       <Text>{item.nombre_curso}</Text>
+               <Text note>{item.fecha_hora}</Text>
+             </Body>
+           </Left>
+         </CardItem>
+         <CardItem>
+           <Body>
+             <Image source={{uri: item.url}} style={{height: 200, width: 200, flex: 1}}/>
+             <Text>
+             {item.descripcion}
+             </Text>
+           </Body>
+         </CardItem>
+         <CardItem>
+           <Left>
+             <Button transparent textStyle={{color: '#87838B'}}>
+               <Icon name="logo-github" />
+               <Text>1,926 stars</Text>
+             </Button>
+           </Left>
+         </CardItem>
+       </Card>
+       ))}
+
         </Content>
         <Footer />
       </Container>

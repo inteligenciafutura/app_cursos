@@ -19,8 +19,12 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/*"
     ],
+    "android": {
+      "package": "com.futura.cursos",
+      "versionCode": 1
+    },
     "ios": {
       "supportsTablet": true
     }
